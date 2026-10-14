@@ -1,0 +1,236 @@
+/* Box-sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f4f6f8;
+  color: #333333;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background-color: #0ba184;
+  color: white;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 8px 0;
+}
+
+header p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Main Area */
+main {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+section {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: #111827;
+}
+
+/* Flexbox Form */
+#note-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+#note-form > div {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: #0ba184;
+  box-shadow: 0 0 0 3px rgba(11, 161, 132, 0.15);
+}
+
+button {
+  background-color: #0ba184;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  height: 42px;
+}
+
+button:hover {
+  background-color: #088a70;
+}
+
+/* Error message styling */
+#error-message {
+  color: #dc2626;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+/* Search input spacing */
+section div:has(#search-input) {
+  margin-bottom: 16px;
+}
+
+/* Notes List & Cards */
+#notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.note-card {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  border-left-width: 6px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.note-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.note-text {
+  font-size: 1rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.note-meta {
+  font-size: 0.8rem;
+  color: #6b7280;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.category-badge {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #f3f4f6;
+}
+
+/* Category Left-Border Colors & Badge text */
+.category-personal {
+  border-left-color: #0ba184; /* Teal */
+}
+.category-personal .category-badge {
+  color: #0ba184;
+}
+
+.category-work {
+  border-left-color: #991b1b; /* Dark Red */
+}
+.category-work .category-badge {
+  color: #991b1b;
+}
+
+.category-study {
+  border-left-color: #2563eb; /* Blue */
+}
+.category-study .category-badge {
+  color: #2563eb;
+}
+
+/* Delete Button on Note Cards */
+.delete-btn {
+  background-color: #ef4444;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  height: auto;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Media Query for Small Screens (600px or narrower) */
+@media (max-width: 600px) {
+  #note-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #note-form > div {
+    width: 100%;
+  }
+
+  #note-form button {
+    width: 100%;
+  }
+}
