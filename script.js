@@ -7,14 +7,25 @@ const notesList = document.querySelector("#notes-list");
 const noteCount = document.querySelector("#note-count");
 const errorMessage = document.querySelector("#error-message");
 
-// ---------- 2. Data State ----------
-let notes = [];
+const STORAGE_KEY = "quicknotes_app_data";
+
+// ---------- 2. Data State & LocalStorage ----------
+let notes = loadNotes();
+
+function loadNotes() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : [];
+}
+
+function saveNotes() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+}
 
 // ---------- 3. Render Function ----------
 function render() {
   notesList.innerHTML = "";
 
-  // Update count message correctly based on project requirements
+  // Update total note count message
   if (notes.length === 0) {
     noteCount.textContent = "You have no notes yet.";
   } else if (notes.length === 1) {
@@ -23,7 +34,24 @@ function render() {
     noteCount.textContent = `You have ${notes.length} notes.`;
   }
 
-  notes.forEach((note) => {
+  // Filter notes based on search input (case-insensitive)
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  const filteredNotes = notes.filter((note) =>
+    note.text.toLowerCase().includes(searchTerm)
+  );
+
+  // If search yields no results and user is actively typing a search query
+  if (filteredNotes.length === 0 && searchTerm !== "") {
+    const li = document.createElement("li");
+    li.textContent = "No notes match your search.";
+    li.style.padding = "16px";
+    li.style.color = "#6b7280";
+    li.style.textAlign = "center";
+    notesList.appendChild(li);
+    return;
+  }
+
+  filteredNotes.forEach((note) => {
     const li = document.createElement("li");
     li.classList.add("note-card", `category-${note.category}`);
 
@@ -65,19 +93,16 @@ function render() {
 function addNote(text, category) {
   const trimmedText = text.trim();
 
-  // Validation: Check if empty or only spaces
   if (trimmedText === "") {
     showError("Please type a note first.");
     return false;
   }
 
-  // Validation: Check character length limit (over 200 characters)
   if (trimmedText.length > 200) {
     showError("Notes must be 200 characters or fewer.");
     return false;
   }
 
-  // Clear any existing error messages on successful validation
   clearError();
 
   const newNote = {
@@ -88,12 +113,14 @@ function addNote(text, category) {
   };
 
   notes.push(newNote);
+  saveNotes();
   render();
   return true;
 }
 
 function deleteNote(id) {
   notes = notes.filter((note) => note.id !== id);
+  saveNotes();
   render();
 }
 
@@ -105,7 +132,7 @@ function clearError() {
   errorMessage.textContent = "";
 }
 
-// ---------- 5. Form Submit Listener ----------
+// ---------- 5. Event Listeners ----------
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   
@@ -120,5 +147,10 @@ form.addEventListener("submit", (event) => {
   }
 });
 
-// Initial render
+// Live search filtering listener
+searchInput.addEventListener("input", () => {
+  render();
+});
+
+// Initial render on page load
 render();
