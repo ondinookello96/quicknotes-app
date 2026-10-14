@@ -29,8 +29,6 @@ QuickNotes is a clean, responsive, and feature-rich note-taking web application 
 
    What I Learned
    I need to do more practice by utilizing all the recordings.
+   I am still a beginner in this.
+   I need to know all the basics.
    ```
-
-I am still a beginner in this.
-
-I need to know all the basics.
