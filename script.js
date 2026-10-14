@@ -14,6 +14,7 @@ let notes = [];
 function render() {
   notesList.innerHTML = "";
 
+  // Update count message correctly based on project requirements
   if (notes.length === 0) {
     noteCount.textContent = "You have no notes yet.";
   } else if (notes.length === 1) {
@@ -60,22 +61,48 @@ function render() {
   });
 }
 
-// ---------- 4. Add & Delete Functions ----------
+// ---------- 4. Add, Delete & Validation Functions ----------
 function addNote(text, category) {
+  const trimmedText = text.trim();
+
+  // Validation: Check if empty or only spaces
+  if (trimmedText === "") {
+    showError("Please type a note first.");
+    return false;
+  }
+
+  // Validation: Check character length limit (over 200 characters)
+  if (trimmedText.length > 200) {
+    showError("Notes must be 200 characters or fewer.");
+    return false;
+  }
+
+  // Clear any existing error messages on successful validation
+  clearError();
+
   const newNote = {
     id: Date.now(),
-    text: text.trim(),
+    text: trimmedText,
     category: category,
     createdAt: new Date().toLocaleString(),
   };
 
   notes.push(newNote);
   render();
+  return true;
 }
 
 function deleteNote(id) {
   notes = notes.filter((note) => note.id !== id);
   render();
+}
+
+function showError(message) {
+  errorMessage.textContent = message;
+}
+
+function clearError() {
+  errorMessage.textContent = "";
 }
 
 // ---------- 5. Form Submit Listener ----------
@@ -85,12 +112,12 @@ form.addEventListener("submit", (event) => {
   const text = input.value;
   const category = categorySelect.value;
 
-  if (text.trim() === "") return; // Basic guard for now
+  const success = addNote(text, category);
 
-  addNote(text, category);
-
-  input.value = "";
-  input.focus();
+  if (success) {
+    input.value = "";
+    input.focus();
+  }
 });
 
 // Initial render
