@@ -14,16 +14,23 @@ QuickNotes is a clean, responsive, and feature-rich note-taking web application 
 ## How to Run the Project Locally
 
 1. Clone the repository to your local machine:
+
    ```bash
    git clone https://github.com/ondinookello96/quicknotes-app.git
+
+
+
+   Navigate into the project directory:
+   Bash
+   cd quicknotes-app
+
+   Open index.html directly in your web browser, or launch it using a local development server like VS Code's Live Server extension.
+
+
+   What I Learned
+   I need to do more practice by utilizing all the recordings.
    ```
 
-Navigate into the project directory:
-Bash: cd quicknotes-app
-
-Open index.html directly in your web browser, or launch it using a local development server like VS Code's Live Server extension.
-
-What I have Learned:
-I need to do more practice by utilizing all the recordings.
 I am still a beginner in this.
+
 I need to know all the basics.
